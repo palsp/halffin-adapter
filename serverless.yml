@@ -1,0 +1,20 @@
+service: chainlink-adapters
+frameworkVersion: "2"
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: "20201221"
+  region: ap-southeast-1
+
+functions:
+  createRequest:
+    handler: src/handler.handlerv2
+    events:
+      - httpApi:
+          path: /
+          method: post
+
+plugins:
+  - serverless-offline

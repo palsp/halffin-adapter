@@ -1,0 +1,19 @@
+{
+  "name": "adapters",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "emulator:start": "serverless offline",
+    "invoke:local": "serverless invoke local",
+    "deploy": "serverless deploy -v"
+  },
+  "dependencies": {
+    "serverless": "^2.64.1",
+    "@chainlink/external-adapter": "^0.2.3",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "serverless-offline": "^8.2.0"
+  }
+}
