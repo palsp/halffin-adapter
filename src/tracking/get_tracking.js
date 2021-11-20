@@ -37,6 +37,11 @@ module.exports = async (input, callback) => {
 
     const response = await Requester.request(config, customError);
     callback(response.status, Requester.success(jobRunID, response.data));
+    // mock exception
+    // callback(
+    //   response.status,
+    //   Requester.success(jobRunID, { data: { tracking: { tag: "Exception" } } })
+    // );
   } catch (error) {
     console.log(error);
     callback(500, Requester.errored(jobRunID, error));

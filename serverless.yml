@@ -33,6 +33,7 @@ functions:
       - httpApi:
           path: /create_tracking
           method: post
+          cors: true
 plugins:
   - serverless-offline
 
