@@ -1,6 +1,7 @@
 const { Requester, Validator } = require("@chainlink/external-adapter");
 const { customError } = require("../error");
 const AWS = require("aws-sdk");
+const { mockTracking } = require("../mock");
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
@@ -19,6 +20,17 @@ module.exports = async (input, callback) => {
       id: trackingId,
     },
   };
+  // for demo purpose
+  if (+trackingId < 3) {
+    const key = Object.keys(mockTracking)[+trackingId];
+    callback(
+      200,
+      Requester.success(jobRunID, {
+        data: { tracking: { tag: mockTracking[key] } },
+      })
+    );
+    return;
+  }
 
   try {
     const {
