@@ -5,6 +5,7 @@ const { customError } = require("../error");
 const AWS = require("aws-sdk");
 const { Tracking } = require("../models");
 const dynamodb = new AWS.DynamoDB.DocumentClient();
+const { mockTracking } = require("../mock");
 
 const customParams = {
   trackingNo: ["trackingNo"],
@@ -16,6 +17,24 @@ module.exports = async (input, callback) => {
   const url = "https://api.aftership.com/v4/trackings";
   const jobRunID = validator.validated.id;
   const trackingNo = validator.validated.data.trackingNo;
+  // for demo purpose
+  if (Object.keys(mockTracking).includes(trackingNo)) {
+    const index = Object.keys(mockTracking).indexOf(trackingNo);
+    callback(
+      201,
+      Requester.success(jobRunID, {
+        data: {
+          tracking: {
+            id: index.toString(),
+            trackingNo,
+            slug: "halffin-logistic",
+          },
+        },
+      })
+    );
+    return;
+  }
+
   const config = {
     url,
     method: "post",
